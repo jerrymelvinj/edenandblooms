@@ -9,6 +9,8 @@ import { LightboxModal } from "@/components/modals/LightboxModal";
 import { WelcomeGuideModal } from "@/components/modals/WelcomeGuideModal";
 import { Toast } from "@/components/ui/Toast";
 import { WhatsAppFab } from "@/components/ui/WhatsAppFab";
+import { JsonLdSchema } from "@/components/seo/JsonLdSchema";
+import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -30,9 +32,60 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Eden & Blooms | Affordable & Thoughtful Event Decor",
+  metadataBase: new URL("https://edenandblooms.com"),
+  title: {
+    default: "Eden & Blooms | Affordable & Thoughtful Event Decor",
+    template: "%s | Eden & Blooms",
+  },
   description:
     "Eden & Blooms - Custom U-shaped ring setups, balloon & floral arches, and custom flex print backdrops for weddings, birthdays, and special events.",
+  keywords: [
+    "Event Decor",
+    "Stage Decoration",
+    "Wedding Decoration",
+    "Birthday Decoration",
+    "Floral Arches",
+    "Balloon Arches",
+    "Eden and Blooms",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Eden & Blooms | Affordable & Thoughtful Event Decor",
+    description:
+      "Custom U-shaped ring setups, balloon & floral arches, and personalized backdrops for your special celebrations.",
+    url: "https://edenandblooms.com",
+    siteName: "Eden & Blooms",
+    images: [
+      {
+        url: "/assets/hero_u_ring.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Eden & Blooms Event Decor",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eden & Blooms | Event Decor",
+    description:
+      "Affordable and thoughtful event decor for weddings, birthdays, and celebrations.",
+    images: ["/assets/hero_u_ring.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -45,7 +98,11 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${cormorant.variable}`}
     >
+      <head>
+        <JsonLdSchema />
+      </head>
       <body className="bg-brand-base text-brand-text-main font-body antialiased">
+        <GoogleAnalytics />
         <ModalProvider>
           <SmoothScrollProvider>
             <Header />
@@ -61,3 +118,4 @@ export default function RootLayout({
     </html>
   );
 }
+

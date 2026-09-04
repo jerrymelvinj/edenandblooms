@@ -58,6 +58,7 @@ export function QuoteEstimatorModal() {
   if (!isQuoteModalOpen) return null;
 
   const currentSetupObj = SETUP_OPTIONS.find((s) => s.id === selectedSetup) || SETUP_OPTIONS[0];
+  const selectedEventObj = EVENT_TYPES.find((e) => e.id === selectedEventType) || EVENT_TYPES[0];
   const addonsTotal = selectedAddons.reduce((acc, addonId) => {
     const addonObj = ADDON_OPTIONS.find((a) => a.id === addonId);
     return acc + (addonObj ? addonObj.price : 0);
@@ -75,7 +76,41 @@ export function QuoteEstimatorModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     closeQuoteModal();
-    showToast(`Thank you ${fullName || "there"}! Your estimated quote of ₹${totalPrice.toLocaleString("en-IN")} has been submitted to +91 8248604075.`);
+
+    const selectedAddonNames = selectedAddons
+      .map((id) => ADDON_OPTIONS.find((a) => a.id === id)?.title)
+      .filter(Boolean)
+      .join(", ");
+
+    // Formatted inquiry text for WhatsApp
+    const whatsappMessage = `*New Event Decor Quote Request - Eden & Blooms* 🌸\n\n` +
+      `👤 *Name:* ${fullName || "N/A"}\n` +
+      `📞 *Phone:* ${phone || "N/A"}\n` +
+      `📅 *Event Date:* ${eventDate || "N/A"}\n` +
+      `🎉 *Event Type:* ${selectedEventObj.title}\n` +
+      `✨ *Selected Setup:* ${currentSetupObj.title} (₹${currentSetupObj.price.toLocaleString("en-IN")})\n` +
+      `➕ *Add-ons:* ${selectedAddonNames || "None"}\n` +
+      `💰 *Estimated Total:* ₹${totalPrice.toLocaleString("en-IN")}\n\n` +
+      `Please confirm date availability and pricing details. Thank you!`;
+
+    const encodedWhatsapp = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
+
+    // Mailto link for Email delivery
+    const mailSubject = encodeURIComponent(`New Quote Request from ${fullName}`);
+    const mailBody = encodeURIComponent(whatsappMessage);
+    const mailUrl = `mailto:edenandblooms@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+    // Show confirmation toast
+    showToast(`Sending quote request to WhatsApp (+91 8248604075) and email (edenandblooms@gmail.com)...`);
+
+    // Trigger WhatsApp in new tab & email client
+    window.open(whatsappUrl, "_blank");
+    setTimeout(() => {
+      window.location.href = mailUrl;
+    }, 1000);
+
+    // Reset form
     setStep(1);
     setFullName("");
     setPhone("");
@@ -118,7 +153,7 @@ export function QuoteEstimatorModal() {
               Build Your Custom Event Package
             </h3>
             <p className="text-xs sm:text-sm text-brand-text-muted mt-1">
-              Get an immediate price estimation in Indian Rupees (₹) and check date availability.
+              Submissions automatically route to WhatsApp (+91 8248604075) and Email (edenandblooms@gmail.com).
             </p>
           </div>
 

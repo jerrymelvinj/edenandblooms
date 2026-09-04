@@ -16,7 +16,28 @@ export function FooterSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    showToast(`Thank you ${name || "there"}! Your message has been sent to edenandblooms@gmail.com. We will respond shortly.`);
+
+    const formattedMessage = `*New Event Inquiry - Eden & Blooms Website* 🌸\n\n` +
+      `👤 *Name:* ${name || "N/A"}\n` +
+      `✉️ *Email:* ${email || "N/A"}\n` +
+      `🎉 *Event & Date:* ${eventDetails || "N/A"}\n` +
+      `💬 *Message:* ${message || "No additional message"}\n`;
+
+    const encodedWhatsapp = encodeURIComponent(formattedMessage);
+    const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
+
+    const mailSubject = encodeURIComponent(`New Event Inquiry from ${name}`);
+    const mailBody = encodeURIComponent(formattedMessage);
+    const mailUrl = `mailto:edenandblooms@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+    showToast(`Sending message to WhatsApp (+91 8248604075) and Email (edenandblooms@gmail.com)...`);
+
+    // Trigger WhatsApp in new tab & email client
+    window.open(whatsappUrl, "_blank");
+    setTimeout(() => {
+      window.location.href = mailUrl;
+    }, 1000);
+
     setName("");
     setEmail("");
     setEventDetails("");

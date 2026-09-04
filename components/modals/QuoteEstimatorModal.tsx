@@ -96,19 +96,10 @@ export function QuoteEstimatorModal() {
     const encodedWhatsapp = encodeURIComponent(whatsappMessage);
     const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
 
-    // Mailto link for Email delivery
-    const mailSubject = encodeURIComponent(`New Quote Request from ${fullName}`);
-    const mailBody = encodeURIComponent(whatsappMessage);
-    const mailUrl = `mailto:edenandblooms@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+    showToast(`Redirecting your quote request to WhatsApp (+91 8248604075)...`);
 
-    // Show confirmation toast
-    showToast(`Sending quote request to WhatsApp (+91 8248604075) and email (edenandblooms@gmail.com)...`);
-
-    // Trigger WhatsApp in new tab & email client
+    // Direct WhatsApp redirection
     window.open(whatsappUrl, "_blank");
-    setTimeout(() => {
-      window.location.href = mailUrl;
-    }, 1000);
 
     // Reset form
     setStep(1);
@@ -153,7 +144,7 @@ export function QuoteEstimatorModal() {
               Build Your Custom Event Package
             </h3>
             <p className="text-xs sm:text-sm text-brand-text-muted mt-1">
-              Submissions automatically route to WhatsApp (+91 8248604075) and Email (edenandblooms@gmail.com).
+              Get an immediate price estimation in Indian Rupees (₹) and submit directly via WhatsApp.
             </p>
           </div>
 

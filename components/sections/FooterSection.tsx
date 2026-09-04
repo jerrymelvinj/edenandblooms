@@ -26,17 +26,10 @@ export function FooterSection() {
     const encodedWhatsapp = encodeURIComponent(formattedMessage);
     const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
 
-    const mailSubject = encodeURIComponent(`New Event Inquiry from ${name}`);
-    const mailBody = encodeURIComponent(formattedMessage);
-    const mailUrl = `mailto:edenandblooms@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+    showToast(`Redirecting your inquiry to WhatsApp (+91 8248604075)...`);
 
-    showToast(`Sending message to WhatsApp (+91 8248604075) and Email (edenandblooms@gmail.com)...`);
-
-    // Trigger WhatsApp in new tab & email client
+    // Direct WhatsApp redirection
     window.open(whatsappUrl, "_blank");
-    setTimeout(() => {
-      window.location.href = mailUrl;
-    }, 1000);
 
     setName("");
     setEmail("");

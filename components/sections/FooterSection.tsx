@@ -7,6 +7,8 @@ import { useModal } from "../providers/ModalProvider";
 import { ScrollReveal } from "../ui/ScrollReveal";
 import { Button } from "../ui/Button";
 
+const INSTAGRAM_URL = "https://www.instagram.com/eden.and.blooms?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==";
+
 export function FooterSection() {
   const { openQuoteModal, showToast } = useModal();
   const [name, setName] = useState("");
@@ -17,19 +19,20 @@ export function FooterSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formattedMessage = `*New Event Inquiry - Eden & Blooms Website* 🌸\n\n` +
-      `👤 *Name:* ${name || "N/A"}\n` +
-      `✉️ *Email:* ${email || "N/A"}\n` +
-      `🎉 *Event & Date:* ${eventDetails || "N/A"}\n` +
-      `💬 *Message:* ${message || "No additional message"}\n`;
+    const formattedMessage = `Hi @eden.and.blooms! 🌸 New Event Inquiry:\n\n` +
+      `👤 Name: ${name || "N/A"}\n` +
+      `✉️ Email: ${email || "N/A"}\n` +
+      `🎉 Event & Date: ${eventDetails || "N/A"}\n` +
+      `💬 Message: ${message || "No additional message"}\n`;
 
-    const encodedWhatsapp = encodeURIComponent(formattedMessage);
-    const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(formattedMessage).catch(() => {});
+    }
 
-    showToast(`Redirecting your inquiry to WhatsApp (+91 8248604075)...`);
+    showToast(`Inquiry copied to clipboard! Opening Instagram DM (@eden.and.blooms)...`);
 
-    // Direct WhatsApp redirection
-    window.open(whatsappUrl, "_blank");
+    // Direct Instagram redirection
+    window.open(INSTAGRAM_URL, "_blank");
 
     setName("");
     setEmail("");
@@ -76,7 +79,7 @@ export function FooterSection() {
             {/* Social & Mail Links */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://www.instagram.com/eden.and.blooms?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw=="
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -144,7 +147,7 @@ export function FooterSection() {
               />
 
               <Button type="submit" variant="metallic" className="w-full gap-2">
-                <Send className="w-4 h-4" /> Send Inquiry
+                <Send className="w-4 h-4" /> Send Inquiry on Instagram
               </Button>
             </form>
           </div>
@@ -186,8 +189,8 @@ export function FooterSection() {
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-3 text-center sm:text-left">
           <div>&copy; 2026 Eden & Blooms. All rights reserved.</div>
           <div className="flex items-center gap-4">
-            <a href="mailto:edenandblooms@gmail.com" className="hover:text-[#FCCDC7] transition-colors">
-              edenandblooms@gmail.com
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-[#FCCDC7] transition-colors">
+              @eden.and.blooms
             </a>
           </div>
         </div>

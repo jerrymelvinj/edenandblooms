@@ -45,6 +45,8 @@ const ADDON_OPTIONS: AddonOption[] = [
   { id: "pampas", title: "+ Pampas Grass & Urn Accents", price: 2000 },
 ];
 
+const INSTAGRAM_URL = "https://www.instagram.com/eden.and.blooms?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==";
+
 export function QuoteEstimatorModal() {
   const { isQuoteModalOpen, closeQuoteModal, showToast } = useModal();
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -82,24 +84,26 @@ export function QuoteEstimatorModal() {
       .filter(Boolean)
       .join(", ");
 
-    // Formatted inquiry text for WhatsApp
-    const whatsappMessage = `*New Event Decor Quote Request - Eden & Blooms* 🌸\n\n` +
-      `👤 *Name:* ${fullName || "N/A"}\n` +
-      `📞 *Phone:* ${phone || "N/A"}\n` +
-      `📅 *Event Date:* ${eventDate || "N/A"}\n` +
-      `🎉 *Event Type:* ${selectedEventObj.title}\n` +
-      `✨ *Selected Setup:* ${currentSetupObj.title} (₹${currentSetupObj.price.toLocaleString("en-IN")})\n` +
-      `➕ *Add-ons:* ${selectedAddonNames || "None"}\n` +
-      `💰 *Estimated Total:* ₹${totalPrice.toLocaleString("en-IN")}\n\n` +
-      `Please confirm date availability and pricing details. Thank you!`;
+    // Formatted inquiry text for Instagram DM
+    const inquiryText = `Hi @eden.and.blooms! 🌸 Here is my custom event decor inquiry:\n\n` +
+      `👤 Name: ${fullName || "N/A"}\n` +
+      `📞 Phone: ${phone || "N/A"}\n` +
+      `📅 Event Date: ${eventDate || "N/A"}\n` +
+      `🎉 Event Type: ${selectedEventObj.title}\n` +
+      `✨ Selected Setup: ${currentSetupObj.title} (₹${currentSetupObj.price.toLocaleString("en-IN")})\n` +
+      `➕ Add-ons: ${selectedAddonNames || "None"}\n` +
+      `💰 Estimated Total: ₹${totalPrice.toLocaleString("en-IN")}\n\n` +
+      `Please confirm date availability and setup details!`;
 
-    const encodedWhatsapp = encodeURIComponent(whatsappMessage);
-    const whatsappUrl = `https://wa.me/918248604075?text=${encodedWhatsapp}`;
+    // Copy details to clipboard
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(inquiryText).catch(() => {});
+    }
 
-    showToast(`Redirecting your quote request to WhatsApp (+91 8248604075)...`);
+    showToast(`Quote request copied! Opening Instagram (@eden.and.blooms)...`);
 
-    // Direct WhatsApp redirection
-    window.open(whatsappUrl, "_blank");
+    // Redirect to Instagram
+    window.open(INSTAGRAM_URL, "_blank");
 
     // Reset form
     setStep(1);
@@ -144,7 +148,7 @@ export function QuoteEstimatorModal() {
               Build Your Custom Event Package
             </h3>
             <p className="text-xs sm:text-sm text-brand-text-muted mt-1">
-              Get an immediate price estimation in Indian Rupees (₹) and submit directly via WhatsApp.
+              Get an immediate price estimation in Indian Rupees (₹) and submit directly to Instagram DM (@eden.and.blooms).
             </p>
           </div>
 
@@ -326,16 +330,16 @@ export function QuoteEstimatorModal() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-[#010618] mb-1">
-                        Phone / WhatsApp *
+                        Phone / Instagram Handle *
                       </label>
                       <div className="relative">
                         <Phone className="w-4 h-4 absolute left-3 top-3 text-brand-text-muted" />
                         <input
-                          type="tel"
+                          type="text"
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+91 8248604075"
+                          placeholder="@yourhandle or +91 8248604075"
                           className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-brand-border focus:border-[#CB9183] focus:ring-1 focus:ring-[#CB9183] outline-none"
                         />
                       </div>
@@ -364,7 +368,7 @@ export function QuoteEstimatorModal() {
                     <ArrowLeft className="w-4 h-4 mr-2" /> Back
                   </Button>
                   <Button type="submit" variant="metallic">
-                    Submit Quote Request
+                    Send Inquiry on Instagram
                   </Button>
                 </div>
               </motion.div>

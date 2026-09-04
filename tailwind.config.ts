@@ -29,7 +29,7 @@ const config: Config = {
       },
       fontFamily: {
         heading: ["var(--font-playfair)", "Playfair Display", "Georgia", "serif"],
-        body: ["var(--font-plus-jakarta)", "Plus Jakarta Sans", "sans-serif"],
+        body: ["var(--font-inter)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         script: ["var(--font-cormorant)", "Cormorant Garamond", "serif"],
       },
       boxShadow: {
@@ -40,7 +40,7 @@ const config: Config = {
       borderRadius: {
         "brand-sm": "6px",
         "brand-md": "12px",
-        "brand-lg": "20px font-bold",
+        "brand-lg": "20px",
       },
     },
   },

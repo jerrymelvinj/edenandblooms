@@ -5,9 +5,7 @@
 @layer base {
   :root {
     --color-bg-base: #FAF8F5;
-    --color-royal-blue: #0E1B38;
-    --color-rose-gold: #B86B77;
-    --color-rose-gold-hover: #9E5460;
+    --color-royal-blue: #010618;
   }
 
   html {
@@ -18,13 +16,16 @@
   body {
     background-color: #FAF8F5;
     color: #2C3545;
-    font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+    font-family: var(--font-inter), Inter, system-ui, sans-serif;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-playfair), Georgia, serif;
-    color: #0E1B38;
+    font-family: var(--font-playfair), Playfair Display, Georgia, serif;
+  }
+
+  button, input, select, textarea {
+    font-family: var(--font-inter), Inter, system-ui, sans-serif;
   }
 }
 
@@ -58,10 +59,10 @@ html.lenis, html.lenis body {
 }
 
 .glass-panel-dark {
-  background: rgba(14, 27, 56, 0.85);
+  background: rgba(1, 6, 24, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(184, 107, 119, 0.2);
+  border: 1px solid rgba(253, 205, 199, 0.2);
 }
 
 /* Custom Scrollbar */
@@ -69,12 +70,12 @@ html.lenis, html.lenis body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #010618;
 }
 ::-webkit-scrollbar-thumb {
-  background: #B86B77;
+  background: #A46755;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9E5460;
+  background: #CB9183;
 }

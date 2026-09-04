@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
+import { Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { ModalProvider } from "@/components/providers/ModalProvider";
@@ -15,9 +15,9 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${plusJakarta.variable} ${cormorant.variable}`}
+      className={`${playfair.variable} ${inter.variable} ${cormorant.variable}`}
     >
       <body className="bg-brand-base text-brand-text-main font-body antialiased">
         <ModalProvider>

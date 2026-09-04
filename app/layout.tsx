@@ -6,6 +6,7 @@ import { ModalProvider } from "@/components/providers/ModalProvider";
 import { Header } from "@/components/sections/Header";
 import { QuoteEstimatorModal } from "@/components/modals/QuoteEstimatorModal";
 import { LightboxModal } from "@/components/modals/LightboxModal";
+import { WelcomeGuideModal } from "@/components/modals/WelcomeGuideModal";
 import { Toast } from "@/components/ui/Toast";
 import { WhatsAppFab } from "@/components/ui/WhatsAppFab";
 
@@ -49,6 +50,7 @@ export default function RootLayout({
           <SmoothScrollProvider>
             <Header />
             {children}
+            <WelcomeGuideModal />
             <QuoteEstimatorModal />
             <LightboxModal />
             <Toast />
